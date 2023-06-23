@@ -28,7 +28,10 @@
 							"pm.test(\"Verify username\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.username).to.eql(pm.collectionVariables.get('user'));   \r",
-							"});"
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"userID\", jsonData.userID);\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -72,7 +75,9 @@
 							"});\r",
 							"pm.test(\"Body matches string\", function () {\r",
 							"    pm.expect(pm.response.text()).to.include(\"authorized successfully\");\r",
-							"});"
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token\", jsonData.token);"
 						],
 						"type": "text/javascript"
 					}
@@ -215,6 +220,32 @@
 						"BookStore",
 						"v1",
 						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{DemoQAUrl}}/Account/v1/User/:UUID",
+					"host": [
+						"{{DemoQAUrl}}"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User",
+						":UUID"
+					],
+					"variable": [
+						{
+							"key": "UUID",
+							"value": "{{userID}}"
+						}
 					]
 				}
 			},
